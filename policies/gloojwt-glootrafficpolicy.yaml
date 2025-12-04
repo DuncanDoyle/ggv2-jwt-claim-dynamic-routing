@@ -1,0 +1,22 @@
+apiVersion: gloo.solo.io/v1alpha1
+kind: GlooTrafficPolicy
+metadata:
+  name: gloojwt-policy
+  namespace: default
+spec:
+  targetRefs:
+    - name: api-example-com
+      group: gateway.networking.k8s.io
+      kind: HTTPRoute
+  glooJWT:
+    beforeExtAuth:
+      providers:
+        selfminted:
+          issuer: solo.io
+          jwks:
+            local:
+              key: '{"keys":[{"e":"AQAB","kid":"3161","kty":"RSA","n":"tmzcODUF5T9p-74QVtftjmB81bnRxvGcgbW1lNsIQSSzhbGLZ7_oqGNS4j6JSDFpjy0XqJnM11_MfZpU4HyeDEBad4tNzEZSprne9OfJoUxdvE8yAoO8Lm8Nz-7Ntp44xyqnqZaR-cz4tnRaBWjA4TEd3mGNfV-Zfnq8YcsQkfKwDDAPVPU9Rpk38cD4ZQqrMWi0Oap9598f1ycc4qFgRYxI95k1phUpcBr4L2wfwukUKgqz6geCIAnW1VEuCm4_axIFqwif9EaA3yjoUD9ByExwA6PkMuIOe192BgAXP8CbTAa3OkMameAeLpxNhg5nkkhYkYKKQuC5HG8QRh1J8w"}]}'
+          claimsToHeaders:
+          - claim: route
+            header: route
+            append: false
