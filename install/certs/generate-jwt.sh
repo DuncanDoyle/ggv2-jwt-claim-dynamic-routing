@@ -22,7 +22,8 @@ PAYLOAD=$(jq -n --arg sub "$SUBJECT" --arg team "$TEAM" --arg route "$ROUTE" --a
   "iss": "solo.io",
   "org": "solo.io",
   "sub": $sub,
-  "team": $team
+  "team": $team,
+  "route": $route
 }')
 
  echo $PAYLOAD | jwt -key $PRIVATE_KEY_PATH -alg RS256 -header kid=$KID -sign -
