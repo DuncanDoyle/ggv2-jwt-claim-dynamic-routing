@@ -17,6 +17,12 @@ spec:
       - path:
           type: PathPrefix
           value: /
+      filters:
+      - type: RequestHeaderModifier
+        requestHeaderModifier:
+          add:
+          - name: route-name
+            value: default
       backendRefs:
       - name: httpbin
         namespace: httpbin
